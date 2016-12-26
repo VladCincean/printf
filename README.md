@@ -60,3 +60,7 @@ The character '%' is followed by 0 or more flags:
 - a character that specifies the type of conversion to be applied
 * sSpdDioOuUxXcC
 * (bonus) eE, fF, gG, aA, n
+
+##### Return value
+- success -> the nr. of characters printed (excluding '\0')
+- error -> a negative value is returned
