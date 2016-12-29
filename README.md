@@ -79,32 +79,32 @@ void va_copy(va_list dest, va_list src);
 ```
 
 A function may be called with a varying nr. of args of varying types.
-- __va list__ (type) + 3 macros (__va start__, __va arg__, __va end__) for stepping through a list of arguments whose number and types are *not* known to the called function
+- __va_list__ (type) + 3 macros (__va_start()__, __va_arg()__, __va_end()__) for stepping through a list of arguments whose number and types are *not* known to the called function
 
-The called function must declare an object of type __va list__ which is used by the 3 macros.
+The called function must declare an object of type __va_list__ which is used by the 3 macros.
 
-##### va\_start()
-- initializes __ap__ for subsequent use by __va arg()__ and __va end()__
+##### va_start()
+- initializes __ap__ for subsequent use by __va_arg()__ and __va_end()__
 - must be called first
 - the argument __last__ = the name of the last argument before the variable argument list (i.e. the last argument of which the calling function knows the type)
-- it should __not__ be declared as a register variable, as a function or as an array type (its address may be used in __va start__ macro)
+- it should __not__ be declared as a register variable, as a function or as an array type (its address may be used in __va_start__ macro)
 
-##### va\_arg()
+##### va_arg()
 - expands to an expression that has the *type* and *value* of the next argument in the call
-- arg. __ap__ is the __va list ap__initialized by __va start()__
-- each call to __va arg()__ modifies __ap__ so that the next call returns the next argument
+- arg. __ap__ is the __va_list ap__ initialized by __va_start()__
+- each call to __va_arg()__ modifies __ap__ so that the next call returns the next argument
 - arg. __type__ is a type name specified so that the type of a pointer to an object that has the specified type can be obtained simply by adding a \* to __type__
-- the first use of the __va arg()__ macro after that of the __va start()__ macro returns the argument after __last__; successive invocations return the values of the remaining arguments
+- the first use of the __va_arg()__ macro after that of the __va_start()__ macro returns the argument after __last__; successive invocations return the values of the remaining arguments
 - if there is no next argument, or if __type__ is not compatible with the type of the actual next argument, random errors will occur `:))`
 - if __ap__ is passed to a function that uses __va arg(*ap*, *type*)__, then the value of __ap__ is undefined after the return of that function
 
-##### va\_end()
-- must match with the corresponding invocation of __va start()__
+##### va_end()
+- must match with the corresponding invocation of __va_start()__
 - after the call __va end(*ap*)__ the variable __ap__ is undefined
-- multiple traversals of the list, each backtracked by __va start/end()__ are possible
-- __va end()__ may be a macro or a function
+- multiple traversals of the list, each backtracked by __va_start/end()__ are possible
+- __va_end()__ may be a macro or a function
 
-##### va\_copy()
+##### va_copy()
 - copies the (previously initialized) variable argument list __src__ to __dest__
 - [...] *see man*
 
@@ -115,7 +115,7 @@ The function __foo__ takes a string of format characters and prints out the argu
 #include <stdio.h>
 #include <stdarg.h>
 
-void foo(char	*fmt, ...)
+void foo(char *fmt, ...)
 {
 	va_list	ap;
 	int		d;
